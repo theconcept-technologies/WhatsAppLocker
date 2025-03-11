@@ -41,12 +41,12 @@ npm run build
 
 ### **Build for macOS**
 ```sh
-npx electron-builder --mac
+./build-macos.sh
 ```
 
 ### **Build for Windows**
 ```sh
-npx electron-builder --win
+./build-windows.sh
 ```
 
 ---
