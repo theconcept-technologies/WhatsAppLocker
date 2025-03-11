@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<title>TCT WhatsApp Locker</title>
+</head>
+<body class="bg-gray-900 text-white flex flex-col justify-center items-center h-screen">
+
+<!-- Login View -->
+<div id="loginView" class="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
+	<h2 class="text-2xl font-semibold mb-4 text-center">Enter Password</h2>
+
+	<label for="password" class="sr-only">Password</label>
+	<input type="password" id="password" placeholder="Enter Password" autofocus
+		   class="w-full p-3 mb-4 text-black rounded-lg border border-gray-600 focus:ring focus:ring-green-500 focus:outline-none">
+	<span class="text-red hidden" id="password-error"></span>
+
+	<button onclick="unlockWhatsApp()"
+			class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+		Unlock
+	</button>
+
+	<button onclick="openSettings()"
+			class="w-full mt-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+		Settings
+	</button>
+</div>
+
+<!-- Logged-In View -->
+<div id="loggedInView" class="hidden text-center">
+	<h2 class="text-3xl font-semibold mb-4">✅ You Are Logged In</h2>
+	<p class="text-lg text-gray-300">WhatsApp is now unlocked.</p>
+	<button onclick="logout()"
+			class="mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+		Logout
+	</button>
+</div>
+
+<footer class="absolute bottom-0 w-full text-center p-4 bg-gray-800 text-gray-400 text-sm">
+	<p>&copy; 2025 <strong>theconcept technologies</strong></p>
+	<p><a href="https://theconcept-technologies.com" class="text-green-400 hover:text-green-300" target="_blank">
+		theconcept-technologies.com</a></p>
+	<p>
+		📞 <a href="tel:+436765877665" class="text-green-400 hover:text-green-300">+43 676 5877665</a> |
+		✉️ <a href="mailto:office@theconcept-technologies.com" class="text-green-400 hover:text-green-300">
+		office@theconcept-technologies.com</a>
+	</p>
+</footer>
+<script>
+	const {ipcRenderer} = require('electron');
+
+	function unlockWhatsApp() {
+		const password = document.getElementById('password').value;
+		ipcRenderer.send('unlock-whatsapp', password);
+	}
+
+	ipcRenderer.on('unlock-success', () => {
+		document.getElementById('loginView').classList.add('hidden');
+		document.getElementById('loggedInView').classList.remove('hidden');
+		document.getElementById('password-error').classList.add('hidden');
+		document.getElementById('password').value = '';
+	});
+
+	ipcRenderer.on('unlock-failed', () => {
+		document.getElementById('password-error').classList.remove('hidden');
+	  	document.getElementById('password-error').innerText = 'Incorrect password. Try again!';
+		document.getElementById('password').focus();
+	});
+
+	function openSettings() {
+		ipcRenderer.send('open-settings');
+	}
+
+	function logout() {
+		ipcRenderer.send('logout');
+	}
+
+	ipcRenderer.on('logout-success', () => {
+		document.getElementById('loggedInView').classList.add('hidden');
+		document.getElementById('loginView').classList.remove('hidden');
+		document.getElementById('password').focus();
+	});
+
+	document.getElementById('password').addEventListener('keydown', function(event) {
+		if (event.key === 'Enter') {
+			unlockWhatsApp();
+		}
+	});
+</script>
+</body>
+</html>

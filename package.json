@@ -1,0 +1,72 @@
+{
+  "name": "whatsapp-locker",
+  "version": "1.0.3",
+  "description": "tct WhatsApp locker",
+  "main": "dist/main.js",
+  "author": "theconcept technologies",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc && electron .",
+    "dev": "ts-node src/main.ts",
+    "build": "tsc && electron-builder --win --x64 --mac"
+  },
+  "build": {
+    "appId": "com.theconcept.technologies.whatsapplocker",
+    "productName": "WhatsAppLocker",
+    "compression": "maximum",
+    "files": [
+      "dist/**/*",
+      "views/**/*",
+      "assets/**/*",
+      "package.json",
+      "!node_modules/@types",
+      "!node_modules/.bin",
+      "!node_modules/electron/dist",
+      "!**/*.map",
+      "!**/*.md",
+      "!**/*.ts",
+      "!**/*.tsx",
+      "!src",
+      "!tsconfig.json",
+      "!package-lock.json"
+    ],
+    "copyright": "Copyright © 2025 theconcept technologies",
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico",
+      "legalTrademarks": "WhatsAppLocker is a product of theconcept technologies",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "assets/**/*"
+    ],
+    "removePackageScripts": true,
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true
+    }
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "auto-launch": "^5.0.6",
+    "dotenv": "^16.4.7",
+    "electron-notifications": "^1.0.0",
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.12",
+    "@types/node": "^18.0.0",
+    "autoprefixer": "^10.4.21",
+    "electron": "^35.0.0",
+    "electron-builder": "^23.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.12",
+    "typescript": "^5.0.0"
+  }
+}

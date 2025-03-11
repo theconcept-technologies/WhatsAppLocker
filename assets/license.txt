@@ -1,0 +1,37 @@
+Copyright (c) 2025 theconcept technologies
+All rights reserved.
+
+SOFTWARE LICENSE AGREEMENT
+
+PLEASE READ THIS SOFTWARE LICENSE AGREEMENT ("LICENSE") CAREFULLY BEFORE USING WHATSAPPLOCKER. BY DOWNLOADING OR USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE.
+
+1. LICENSE GRANT
+   theconcept technologies ("Licensor") grants you a limited, non-exclusive, non-transferable license to install and use WhatsAppLocker on a single device for personal or commercial use.
+
+2. RESTRICTIONS
+   - You may NOT modify, distribute, sublicense, or reverse engineer WhatsAppLocker.
+   - Unauthorized copying, sharing, or distribution is strictly prohibited.
+   - The software is provided "AS IS" without warranty of any kind.
+
+3. OWNERSHIP
+   WhatsAppLocker and all intellectual property rights associated with it remain the sole property of theconcept technologies.
+
+4. DISCLAIMER OF WARRANTIES
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+5. LIMITATION OF LIABILITY
+   UNDER NO CIRCUMSTANCES SHALL theconcept technologies BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OR INABILITY TO USE THIS SOFTWARE.
+
+6. TERMINATION
+   This license is effective until terminated. Violation of any terms will result in automatic termination of this agreement.
+
+7. GOVERNING LAW
+   This agreement shall be governed by and construed in accordance with the laws of Austria.
+
+CONTACT:
+   theconcept technologies
+   Website: https://theconcept-technologies.com
+   Email: office@theconcept-technologies.com
+   Phone: +43 676 5877665
+
+By using WhatsAppLocker, you acknowledge that you have read and understood this agreement and agree to its terms.
