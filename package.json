@@ -1,14 +1,32 @@
 {
   "name": "whatsapp-locker",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "tct WhatsApp locker",
   "main": "dist/main.js",
-  "author": "theconcept technologies",
+  "author": {
+    "name": "Martin Weigl",
+    "url": "https://theconcept-technologies.com"
+  },
+  "company": {
+    "name": "theconcept technologies LLC & theconcept technologies FlexKapG",
+    "url": "https://theconcept-technologies.com",
+    "location": "New York, USA & Riegersburg, Austria"
+  },
+  "homepage": "https://theconcept-technologies.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theconcepttech/xdebug-pro-extension"
+  },
   "license": "MIT",
   "scripts": {
     "start": "tsc && electron .",
     "dev": "ts-node src/main.ts",
-    "build": "tsc && electron-builder --win --x64 --mac"
+    "build": "tsc && electron-builder --win --x64 --mac",
+    "generate-icons": "node scripts/generate-icons.js",
+    "release": "node scripts/create-release.js",
+    "release:patch": "node scripts/create-release.js patch",
+    "release:minor": "node scripts/create-release.js minor",
+    "release:major": "node scripts/create-release.js major"
   },
   "build": {
     "appId": "com.theconcept.technologies.whatsapplocker",
