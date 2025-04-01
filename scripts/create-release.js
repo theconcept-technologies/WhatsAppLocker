@@ -66,7 +66,8 @@ function createRelease() {
     if (!fs.existsSync('dist')) {
       throw new Error('dist directory not found. Build failed?');
     }
-    executeCommand(`cd dist && zip -r ../whatsapp-locker-v${newVersion}.zip . && cd ..`);
+    executeCommand(`cd dist && zip ../whatsapp-locker-v${newVersion}.zip *.exe *.dmg && cd ..`);
+    // executeCommand(`cd dist && zip -r ../whatsapp-locker-v${newVersion}.zip . && cd ..`);
 
     // Commit changes
     console.log('💾 Committing changes...');
@@ -76,7 +77,7 @@ function createRelease() {
     // Create and push tag
     console.log('🏷️  Creating tag...');
     executeCommand(`git tag -a v${newVersion} -m "Version ${newVersion}"`);
-    
+
     // Push to remote
     console.log('🚀 Pushing to remote...');
     executeCommand('git push origin main');
@@ -99,4 +100,4 @@ Next steps:
   }
 }
 
-createRelease(); 
+createRelease();

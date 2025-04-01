@@ -8,7 +8,8 @@ echo "🚀 Starting macOS build process..."
 
 # Step 1: Clean previous builds
 echo "🧹 Cleaning old builds..."
-rm -rf dist/
+rm -rf dist/mac
+rm -rf dist/WhatsAppLocker.dmg
 
 # Step 2: Compile TypeScript (if applicable)
 echo "🔨 Compiling TypeScript..."
