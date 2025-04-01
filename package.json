@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-locker",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "tct WhatsApp locker",
   "main": "dist/main.js",
   "author": {
