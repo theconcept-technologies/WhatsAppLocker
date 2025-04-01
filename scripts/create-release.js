@@ -58,7 +58,8 @@ function createRelease() {
 
     // Build the extension
     console.log('🏗️  Building extension...');
-    executeCommand('npm run build');
+    executeCommand('npm run build-optimized');
+    // executeCommand('npm run build');
 
     // Create zip file
     console.log('📦 Creating release zip...');

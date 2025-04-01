@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-locker",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "tct WhatsApp locker",
   "main": "dist/main.js",
   "author": {
@@ -22,6 +22,7 @@
     "start": "tsc && electron .",
     "dev": "ts-node src/main.ts",
     "build": "tsc && electron-builder --win --x64 --mac",
+    "build-optimized": "./build-windows.sh && ./build-macos.sh",
     "generate-icons": "node scripts/generate-icons.js",
     "release": "node scripts/create-release.js",
     "release:patch": "node scripts/create-release.js patch",
