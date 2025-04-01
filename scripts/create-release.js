@@ -66,7 +66,7 @@ function createRelease() {
     if (!fs.existsSync('dist')) {
       throw new Error('dist directory not found. Build failed?');
     }
-    executeCommand(`cd dist && zip -r ../xdebug-pro-v${newVersion}.zip . && cd ..`);
+    executeCommand(`cd dist && zip -r ../whatsapp-locker-v${newVersion}.zip . && cd ..`);
 
     // Commit changes
     console.log('💾 Committing changes...');
@@ -89,7 +89,7 @@ Next steps:
 1. Go to GitHub: ${require('../package.json').repository.url}/releases
 2. Click "Draft a new release"
 3. Select tag "v${newVersion}"
-4. Upload the zip file: xdebug-pro-v${newVersion}.zip
+4. Upload the zip file: whatsapp-locker-v${newVersion}.zip
 5. Add release notes
 `);
 
