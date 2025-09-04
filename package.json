@@ -82,7 +82,7 @@
     "@types/electron": "^1.6.12",
     "@types/node": "^18.0.0",
     "autoprefixer": "^10.4.21",
-    "electron": "^35.0.0",
+    "electron": "^35.7.5",
     "electron-builder": "^26.0.12",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.12",
