@@ -16,6 +16,8 @@ let mainWindow: BrowserWindow | null;
 let settingsWindow: BrowserWindow | null;
 let passwordWindow: BrowserWindow | null;
 let tray: Tray | null = null;
+let lastUnauthorizedClose = 0; // throttle UI popups when blocking WhatsApp
+const UNAUTHORIZED_COOLDOWN_MS = 60_000; // 1 minute cooldown
 let lastActivityTime = Date.now();
 let settings = loadSettings(); // ✅ Load settings
 let whatsappUnlocked = false; // Track if WhatsApp was unlocked
@@ -261,7 +263,7 @@ function isUserPasswordSet(): boolean {
 	return fs.existsSync(PASSWORD_FILE) && fs.readFileSync(PASSWORD_FILE, "utf8").trim().length > 0;
 }
 
-// Check if the user is inactive and lock WhatsApp after 5 minutes
+// Check if the user is inactive and lock WhatsApp after 5 minutes (keeps window hidden; do not show/focus)
 function checkInactivity() {
 	if (whatsappUnlocked) {
 		const timeSinceLastActivity = Date.now() - lastActivityTime;
@@ -275,7 +277,10 @@ function checkInactivity() {
 		if (timeSinceLastActivity > settings.inactivityTimeout) {
 			closeWhatsApp();
 			whatsappUnlocked = false;
-			lockApp();
+			lockApp(); // keeps window hidden; do not show/focus
+			if (settings?.showNotifications !== false) {
+				showNotification("WhatsApp has been locked due to inactivity.");
+			}
 		}
 	}
 }
@@ -475,10 +480,20 @@ function monitorWhatsApp() {
 	setInterval(() => {
 		const isRunning = isWhatsAppRunning();
 		if (isRunning && !whatsappUnlocked) {
-			console.log("Unauthorized WhatsApp usage detected! Closing app...");
-			closeWhatsApp();
-			mainWindow?.focus();
-			mainWindow?.show();
+			const now = Date.now();
+			if (now - lastUnauthorizedClose > UNAUTHORIZED_COOLDOWN_MS) {
+				lastUnauthorizedClose = now;
+				closeWhatsApp();
+
+				// Prefer passive notification over stealing focus
+				if (settings?.showNotifications !== false) {
+					showNotification("WhatsApp was closed because it was opened without unlocking.");
+				}
+
+				// Optionally flash the tray icon on Windows without showing the window
+				// (Electron does not expose a unified API; keep window hidden by default)
+				// Do NOT call focus/show here to avoid popup annoyance
+			}
 		}
 	}, 2000); // Check every 2 seconds
 
