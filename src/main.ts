@@ -24,7 +24,6 @@ let whatsappUnlocked = false; // Track if WhatsApp was unlocked
 
 app.setLoginItemSettings({
 	openAtLogin: app.isPackaged,
-	openAsHidden: app.isPackaged,  // Runs minimized to the system tray
 	path: app.getPath("exe") // Uses the installed .exe location
 });
 
