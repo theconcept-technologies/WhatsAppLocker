@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            target: --win --x64
+            artifact: '*.exe'
+          - os: macos-latest
+            target: --mac
+            artifact: '*.dmg'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc
+      - run: npx electron-builder ${{ matrix.target }} --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ matrix.os }}
+          path: dist/${{ matrix.artifact }}
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: installers
+          merge-multiple: true
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          cd installers
+          zip "../whatsapp-locker-v${VERSION}.zip" *.exe *.dmg
+          cd ..
+          gh release create "v${VERSION}" "whatsapp-locker-v${VERSION}.zip" installers/*.exe installers/*.dmg \
+            --target "${GITHUB_SHA}" \
+            --title "Version ${VERSION}" \
+            --notes-file .github/release-notes.md
